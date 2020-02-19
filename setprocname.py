@@ -1,4 +1,6 @@
 import os
+from random import randint
+
 import psutil
 
 
@@ -10,7 +12,7 @@ def get_procs():
 
 def process_exists():
     print('Checking if the given process exists...')
-    check_process_exists = psutil.pid_exists(6942)
+    check_process_exists = psutil.pid_exists(randint(0, 9000))
     if check_process_exists:
         print(check_process_exists)
     else:
@@ -19,7 +21,7 @@ def process_exists():
 
 def get_specific_proc():
     print('Showing given process...')
-    especific_proc = psutil.Process(6942)
+    especific_proc = psutil.Process(randint(0, 9000))
     especific_proc_name = especific_proc.name()
     print(especific_proc_name)
 
