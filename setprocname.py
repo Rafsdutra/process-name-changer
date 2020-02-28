@@ -6,7 +6,7 @@ import psutil
 def get_procs():
     print('Listing all processes...')
     for proc in psutil.process_iter(['pid', 'name']):
-        print('Processo:' + str(proc.info))
+        print('Process:' + str(proc.info))
         print('----------------------------------------------------')
 
 
@@ -24,26 +24,19 @@ def check_if_process_exists():
         print('The given process does not exists!')
 
 
-# Get a specific process and show its name
-def get_process_by_name():
-    print('Search process by its name!')
-    process_name_input = str(input("Insert name process: "))
-    process = []
-    for p in psutil.process_iter([process_name_input]):
-        if p.info[process_name_input] == process_name_input:
-            process.append(p)
-            print('Process found! Name: ' + str(process))
-
-    else:
-        print("Process not found!")
-
-    # especific_proc = psutil.Process(6942)
-    # especific_proc_name = especific_proc.name()
-    # print("Nome do Processo: " + str(process))
+def find_procs_by_name():
+    pname = input(map(str, "Insert the process name: "))
+    ls = []
+    for p in psutil.process_iter([pname, "exe", "cmdline"]):
+        if pname == p.info(pname) or \
+                p.info(pname) and os.path.basename(p.info['exe']) == pname or \
+                p.info['cmdline'] and p.info['cmdline'][0] == pname:
+            ls.append(p)
+    print(ls)
 
 
 if __name__ == '__main__':
     # get_procs()
     # os.system('clear')
     # check_if_process_exists()
-    get_process_by_name()
+    find_procs_by_name()
