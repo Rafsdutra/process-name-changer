@@ -25,9 +25,11 @@ def check_if_process_exists():
 
 
 def find_procs_by_name():
-    pname = input(map(str, "Insert the process name: "))
+    pname = input(str("Insert the process name: "))
+    print(pname)
+    arr = [pname]
     ls = []
-    for p in psutil.process_iter([pname, "exe", "cmdline"]):
+    for p in psutil.process_iter(arr, ["exe", "cmdline"]):
         if pname == p.info(pname) or \
                 p.info(pname) and os.path.basename(p.info['exe']) == pname or \
                 p.info['cmdline'] and p.info['cmdline'][0] == pname:
